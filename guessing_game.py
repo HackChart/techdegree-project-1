@@ -13,30 +13,37 @@ import random
 
 
 def start_game():
-    """Psuedo-code Hints
-    
-    When the program starts, we want to:
-    ------------------------------------
-    1. Display an intro/welcome message to the player.
-    2. Store a random number as the answer/solution.
-    3. Continuously prompt the player for a guess.
-      a. If the guess greater than the solution, display to the player "It's lower".
-      b. If the guess is less than the solution, display to the player "It's higher".
-    
-    4. Once the guess is correct, stop looping, inform the user they "Got it"
-         and show how many attempts it took them to get the correct number.
-    5. Let the player know the game is ending, or something that indicates the game is over.
-    
-    ( You can add more features/enhancements if you'd like to. )
-    """
-    # write your code inside this function.
-    answer = random.randint(1, 10)
+    solution = random.randint(1, 10)
+    guess = None
+    tries = 0
     print("""
     -------------------------------------
     Welcome to the Number Guessing Game!
     -------------------------------------
     """)
-    guess = input("Guess a number between 1 and 10: ")
+    while guess != solution:
+        #Validate player guess
+        while type(guess) != int: # TODO: RECHECK THIS
+            try:    
+                guess = int(input("Guess a number between 1 and 10: "))
+            except ValueError:
+                print("Please enter a numeric value!")
+            else:
+                if guess not in range(11):
+                    print("Sorry, the number has to be between 1 and 10")
+                    guess = None
+        print(guess)
+
+        #Determine guess location
+        if guess > solution:
+            print("It's Lower!")
+        elif guess < solution:
+            print("It's Higher!")
+        else:
+            print(f"That's correct! The number was {solution}!")
+        tries += 1
+        guess = None
+    
 
 
 if __name__ == '__main__':
